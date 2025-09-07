@@ -8,7 +8,7 @@ class ParEngranesCompatibilidad(ParEngranesGeometria):
         self.pinion_min_N = None
 
 
-    def orientacion_dientes(self, m_g, phi_n, psi, m=None, pi_n=None, sistema_dientes=None):
+    def orientacion(self, m_g, phi_n, psi, m=None, pi_n=None, sistema_dientes=None):
         """
         Calcula el N mínimo del piñón (Np_min) para el par dado (m, φ_t, ψ) y,
         a partir de la transmisión m_g = Ng/Np, calcula Ng. Usa el método
@@ -48,13 +48,13 @@ class ParEngranesCompatibilidad(ParEngranesGeometria):
 
         print("=== Dientes desde transmisión ===")
         print(f"m (módulo normal): {self._fmt(m)} mm")
+        print(f"Ancho de cara recomendable mayor a {8*m} y menor a {16*m}")
         print(f"φ_n (presion): {self._deg(phi_t)}°")
         print(f"ψ (hélice): {self._deg(psi)}°")
         print(msg)
         print(f"Relación m_g = Ng/Np: {self._fmt(m_g, 3)}")
         if Ng is not None:
             print(f"Número de dientes requerido en el engrane (Ng): {Ng}")
-
 
 
     # ----------------- helpers -----------------

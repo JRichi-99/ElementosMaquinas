@@ -8,7 +8,7 @@ class ParEngranesResistencia(PEE):
         self.K_T = None  # factor de temperatura
         self.K_R = None  # factor de confiabilidad
         self.C_L = None  # factor de lubricación (contacto)
-        self.C_H_p = 1   # factor de dureza (contacto)
+        self.C_H_p = None   # factor de dureza (contacto)
         self.C_H_g = None
         self.temperatura = None 
         self.R = None
@@ -67,6 +67,10 @@ class ParEngranesResistencia(PEE):
             )
     
     def calc_C_H(self):
+        if self.C_H_p is not None: 
+            print("Se selecciono valor de C_H_p", self.C_H_p)
+        else: 
+            self.C_H_p = 1
         if self.C_H_g is not None:
             print("Se selecciono valor de C_H_g: ", self.C_H_g)
             return

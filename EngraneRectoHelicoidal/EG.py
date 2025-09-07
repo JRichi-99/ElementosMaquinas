@@ -43,6 +43,7 @@ class EngranajeGeometria:
 
         # Resistencia (se calcula en otra etapa)
         self.r_curvatura = None
+        self.Ne = None
 
     # ============ API: recibe todo derivado y calcula diente/diámetros ============
     def calc_geometric(
@@ -110,6 +111,7 @@ class EngranajeGeometria:
             b = 1.0 * m
 
         ht = a + b
+        self.Ne = N*np.sqrt((1+np.cos(self.psi)**2)/2)/(np.cos(self.psi)**2)
 
         # Espesor circular en el paso (transversal)
         e = 0.5 * np.pi * m_t
@@ -160,6 +162,7 @@ class EngranajeGeometria:
         lines.append(f"Acople: {self.acople}")
         lines.append(f"Sistema de dientes: {self.sist_dientes}")
         lines.append(f"Número de dientes N: {fmt(self.N)}")
+        lines.append(f"Numero virtual de dientes Ne {fmt(self.Ne)}")
 
         # Módulos
         lines.append(f"m (módulo normal): {fmt(self.m)} mm")
