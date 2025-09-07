@@ -1,0 +1,19 @@
+Referencia  :  Par 0  —  pinion    ω_ref = 41.89 rad/s   (400.00 rpm)
+Camino      :  0.p  →  0.e  →  1.p  →  1.e  →  2.p  →  2.e
+
+RELACIONES LOCALES POR PAR
+  Par 0   m_g = 2.00     m_v = 0.50
+  Par 1   m_g = 2.00     m_v = 0.50
+  Par 2   m_g = 2.00     m_v = 0.50
+
+NODOS (ω y T)
+  Par 0  —  Piñón    ω = 41.89 rad/s   (400.00 rpm)   T = 69.23 N·m
+  Par 0  —  Engrane  ω = 20.94 rad/s   (200.00 rpm)   T = 138.46 N·m
+  Par 1  —  Piñón    ω = 20.94 rad/s   (200.00 rpm)   T = 138.46 N·m
+  Par 1  —  Engrane  ω = 10.47 rad/s   (100.00 rpm)   T = 276.93 N·m
+  Par 2  —  Piñón    ω = 10.47 rad/s   (100.00 rpm)   T = 276.93 N·m
+  Par 2  —  Engrane  ω = 5.24 rad/s   (50.00 rpm)   T = 553.86 N·m
+
+RELACIÓN TOTAL DEL TREN
+  m_g_total  = 0.50   (≈ N_final / N_inicial)
+  m_v_total  = 2.00   (= 1 / m_g_total)
