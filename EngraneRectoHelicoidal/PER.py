@@ -30,6 +30,7 @@ class ParEngranesResistencia(PEE):
         self.C_L_p         = parametros.get("C_L_p")
         self.C_L_g         = parametros.get("C_L_g")
         self.C_H_g       = parametros.get("C_H_g")
+        self.C_H_p      = parametros.get("C_H_p")
         self.temperatura = parametros.get("temperatura")
         self.R           = parametros.get("R")
         self.caso_engrane= parametros.get("caso_engrane")

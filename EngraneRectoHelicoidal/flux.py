@@ -5,7 +5,7 @@ def run_par_pipeline(
     geo_params: dict | None = None,
     tension_params: dict | None = None,
     resistance_params: dict | None = None,
-    until: str = "resistencia",
+    until: str = "r",
 ):
     """
     Procesa un ParEngranesResistencia ya creado por el usuario.

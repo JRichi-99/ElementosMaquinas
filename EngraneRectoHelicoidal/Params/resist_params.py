@@ -20,6 +20,7 @@ resistance_params0 = {
 
     "K_T": None, 
     "K_R": None,
+    "C_H_p": None,     # si no lo conoces aún, puedes dejar None
     "C_H_g": None     # si no lo conoces aún, puedes dejar None
 }
 
@@ -45,6 +46,7 @@ resistance_params1 = {
 
     "K_T": None, 
     "K_R": None,
+    "C_H_p": None,     # si no lo conoces aún, puedes dejar None
     "C_H_g": None     # si no lo conoces aún, puedes dejar None
 }
 
@@ -70,6 +72,7 @@ resistance_params2 = {
 
     "K_T": None, 
     "K_R": None,
+    "C_H_p": None,     # si no lo conoces aún, puedes dejar None
     "C_H_g": None     # si no lo conoces aún, puedes dejar None
 }
 
