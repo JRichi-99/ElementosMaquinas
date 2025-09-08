@@ -160,8 +160,6 @@ class ParEngranesCompatibilidad(ParEngranesGeometria):
                 lines.append(f"Ancho de cara FUERA de rango recomendable {8*self.m} < {self.F} < {16*self.m}")
             else:
                 lines.append(f"Ancho de cara DENTRO de rango recomendable {8*self.m} < {self.F} < {16*self.m}")
-        
-
 
         return lines
 

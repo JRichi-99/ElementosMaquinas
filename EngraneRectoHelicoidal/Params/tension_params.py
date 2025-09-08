@@ -3,9 +3,10 @@ tension_params0 = {
     "K_M": 1.5,
     "K_S": 1.00,
     "K_B": 1.05,
-    "K_I": 1.00,
     "K_V": None,
 
+    "K_I_pin": 1.00,
+    "K_I_eng": 1.00,
     "Jp_pin": 0.53,
     "Jmod_pin": 0.96,
     "Jp_eng": 0.59,
@@ -25,9 +26,10 @@ tension_params1 = {
     "K_M": 1.5,
     "K_S": 1.00,
     "K_B": 1.05,
-    "K_I": 1.00,
     "K_V": None,
 
+    "K_I_pin": 1.00,
+    "K_I_eng": 1.00,
     "Jp_pin": 0.53,
     "Jmod_pin": 0.96,
     "Jp_eng": 0.59,

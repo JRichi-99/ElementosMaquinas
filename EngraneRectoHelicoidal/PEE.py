@@ -23,11 +23,12 @@ class ParEngranesEsfuerzo(ParEngranesTransmision):
         self.Jp_eng= None 
         self.Jmod_eng= None 
 
+        self.K_I_pin= None
+        self.K_I_eng = None
 
         self.F   = None   # ancho de cara a usar en esfuerzo (mm)
         self.C_p = None   # coeficiente elástico [√MPa]
         self.C_F = None   # factor superficial
-
         self.Q_v = None   # Calidad
 
 
@@ -38,11 +39,11 @@ class ParEngranesEsfuerzo(ParEngranesTransmision):
         self.calc_k_v()
         if pinion:
             self.pinion.calc_tensions(
-            K_A=self.K_A, K_M=self.K_M, K_S=self.K_S, K_B=self.K_B, K_I=self.K_I, K_V=self.K_V,
+            K_A=self.K_A, K_M=self.K_M, K_S=self.K_S, K_B=self.K_B, K_I=self.K_I_pin, K_V=self.K_V,
             J=self.J_pin, F=self.F, C_p=self.C_p, C_F=self.C_F, I=self.I)
         if engrane:
             self.engrane.calc_tensions(
-            K_A=self.K_A, K_M=self.K_M, K_S=self.K_S, K_B=self.K_B, K_I=self.K_I, K_V=self.K_V,
+            K_A=self.K_A, K_M=self.K_M, K_S=self.K_S, K_B=self.K_B, K_I=self.K_I_eng, K_V=self.K_V,
             J=self.J_eng, F=self.F, C_p=self.C_p, C_F=self.C_F, I=self.I)
 
 
@@ -52,8 +53,10 @@ class ParEngranesEsfuerzo(ParEngranesTransmision):
         self.K_M     = parametros.get("K_M",     self.K_M)
         self.K_S     = parametros.get("K_S",     self.K_S)
         self.K_B     = parametros.get("K_B",     self.K_B)
-        self.K_I     = parametros.get("K_I",     self.K_I)
         self.K_V     = parametros.get("K_V",     self.K_V)
+
+        self.K_I_pin = parametros.get("K_I_pin")
+        self.K_I_eng = parametros.get("K_I_eng")
 
         # J parciales / modificadores
         self.Jp_pin  = parametros.get("Jp_pin",  self.Jp_pin)

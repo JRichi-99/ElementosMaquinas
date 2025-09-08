@@ -20,6 +20,7 @@ class ParEngranesResistencia(PEE):
         self.pSFC_p = None
         self.HB_p = None
         self.HB_g = None
+  
         
     def resistance_params(self, parametros: dict):
         self.K_L_g         = parametros.get("K_L_g")
@@ -40,6 +41,8 @@ class ParEngranesResistencia(PEE):
 
         self.HB_g = parametros.get("HB_g")
         self.HB_p = parametros.get("HB_p")
+
+        
 
     def calc_resistencia(self, pinion=True,engrane=True):
         self.calc_C_H()

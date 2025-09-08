@@ -1,6 +1,6 @@
 trans_params = {
-    "start_id": 1,
-    "where": "engrane",
+    "start_id": 0,
+    "where": "pinion",
     "H": 350,
     "H_units": "si",
     "Omega": None,
