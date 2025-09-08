@@ -1,0 +1,20 @@
+Resumen transmisión del Par 2.0000
+========================================================================
+Estado de propagación (transmited): True
+
+GEOMETRÍA
+  * Dientes: N_p=34   N_g=102
+  * Ventaja mecánica: m_g = N_g/N_p = 3.0000
+  * Relación velocidades : m_v = N_p/N_g = 0.3333
+
+CINEMÁTICA Y FUERZAS
+  Piñón
+    - ω = 11.6355 rad/s  (111.1111 rpm)
+    - T = 9.4538 N·m   H = 110.0000 W
+    - Wt=556.1061 N   Wr=202.4061 N   Wa=0.0000 N   Wn=591.7957 N
+    - Vt = 0.1978 m/s
+  Engrane
+    - ω = 3.8785 rad/s  (37.0370 rpm)
+    - T = 28.3614 N·m   H = 110.0000 W
+    - Wt=556.1061 N   Wr=202.4061 N   Wa=0.0000 N   Wn=591.7957 N
+    - Vt = 0.1978 m/s

@@ -1,16 +1,16 @@
 == RESUMEN DE COMPATIBILIDAD (ID 0) ==
 Tipo: recto | Acople: externos
-Dientes: Np=34 | Ng=170
+Dientes: Np=34 | Ng=102
 Ángulos [°]: φ_n=20.00 | φ_t=20.00 | ψ=0.00
-m_p=1.79 | m_f=- | m_n=1
+m_p=1.77 | m_f=- | m_n=1
 
 -- Interferencia --
 No hay interferencia (todos los criterios se cumplen).
 Interferencia: NO
 
 -- Contacto --
-Razón de contacto m_p OK: 1.79
-Ancho de cara DENTRO de rango recomendable 4.0 < 5.0 < 8.0
+Razón de contacto m_p OK: 1.77
+Ancho de cara DENTRO de rango recomendable 8.0 < 10 < 16.0
 
 -- Dientes mínimos --
 Piñón con dientes suficientes: 34 ≥ 13

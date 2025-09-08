@@ -1,0 +1,33 @@
+================= RESUMEN DE RESISTENCIA (ID 1) =================
+Tipo: recto | Acople: externos
+Np=34 | Ng=102 | m_g=Ng/Np=3.00
+
+---- Parámetros de servicio ----
+Temperatura [°C]                  20.00
+Confiabilidad R [-]                0.99
+K_T [-]                               1
+K_R [-]                            1.00
+Caso engrane                       masa
+Rq [µm]                            0.80
+
+                                  PIÑÓN |        ENGRANE
+-------------------------+--------------------------------
+---- Coeficientes por elemento ----
+K_L [-]                               1 |              1
+C_L [-]                               1 |              1
+C_H [-]                               1 |           1.00
+pSF (flex) [MPa]                    324 |            324
+pSFC (cont.) [MPa]                  942 |            942
+HB (dureza) [-]                     300 |            300
+
+---- Tensiones ----
+sigma_f [MPa]                     96.61 |          88.21
+sigma_c [MPa]                    559.66 |         323.12
+
+---- Seguridad ----
+safe_f (perm.) [MPa]             324.00 |         324.00
+safe_c (perm.) [MPa]             942.00 |         942.00
+factor_f [-]                       3.35 |           3.67
+factor_c [-]                       2.83 |           8.50
+cumple flexión                       OK |             OK
+cumple contacto                      OK |             OK

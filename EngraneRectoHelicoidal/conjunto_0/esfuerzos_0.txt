@@ -1,0 +1,32 @@
+== RESUMEN DE ESFUERZOS (ID 0) ==
+Tipo: recto | Acople: externos
+Relación mg=Ng/Np: 3.00
+
+--- Parámetros usados ---
+K_A   : 1    K_M   : 1.60    K_S   : 1.00
+K_B   : 1.00    K_I   : -    K_V   : 0.86
+C_p   : 191.00 [√MPa]    C_F   : 1.00    Q_v   : 10
+I (AGMA)  : 0.1389951754277124    F (mm)    : 10
+Jp_pin    : 0.42    Jmod_pin  : 1    J_pin (ef)  : 0.42
+Jp_eng    : 0.46    Jmod_eng  : 1    J_eng (ef)  : 0.46
+
+                            PIÑÓN |        ENGRANE
+-------------------+--------------------------------
+--- Carga ---
+T                            1.05 |           3.15 [N·m]
+Omega                      104.72 |          34.91 [rad/s]
+Omega                     1000.00 |         333.33 [rpm]
+H                          110.00 |         110.00 [W]
+
+--- Fuerzas ---
+Wt                          61.79 |          61.79 [N]
+Wr                          22.49 |          22.49 [N]
+Wa                           0.00 |           0.00 [N]
+Wn                          65.76 |          65.76 [N]
+
+--- Cinemática ---
+Vt                           1.78 |           1.78 [m/s]
+
+--- Tensiones ---
+sigma_f                     27.32 |          24.94 [MPa]
+sigma_c                    297.62 |         171.83 [MPa]

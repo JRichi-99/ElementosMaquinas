@@ -4,12 +4,20 @@ import numpy as np
 class ParEngranesTransmision(PEC):
     def __init__(self):
         super().__init__()
-        self.Omega = None
         self.H = None
-        self.T = None
         self.transmited = False
 
-    
+    def print_ciclos(self, horas, dias, years):
+        ciclos_p = self.pinion.Omega * 60 / (2*np.pi) * 60 * horas * dias * years
+        ciclos_g = self.engrane.Omega * 60 / (2*np.pi) * 60 * horas * dias * years
+
+        print()
+        print(f"Par engrane {self.id}")
+        print("Ciclos piñón  :", f"{ciclos_p:.3e}")
+        print("Ciclos engrane:", f"{ciclos_g:.3e}")
+        print()
+
+
     def set_load_si(self, H, Omega, T, where):
         if "pinion" == where:
             self.pinion.set_load(T=T, Omega=Omega, H=H)

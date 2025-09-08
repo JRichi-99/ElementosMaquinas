@@ -34,9 +34,9 @@ def run_par_pipeline(
     par_obj : PER
         El mismo objeto, modificado con la información calculada.
     """
-    order = {"geometria": 0, "transmision": 1, "esfuerzos": 2, "resistencia": 3}
+    order = {"g": 0, "t": 1, "e": 2, "r": 3}
     if until not in order:
-        raise ValueError("until debe ser: 'geometria', 'transmision', 'esfuerzos' o 'resistencia'")
+        raise ValueError("until debe ser: 'g', 't', 'e' o 'r'")
     stage = order[until]
 
     # 1) Geometría
@@ -55,7 +55,7 @@ def run_par_pipeline(
 
     # 3) Esfuerzos
     if tension_params is not None:
-        par_obj.tension_params(**tension_params)
+        par_obj.tension_params(tension_params)
         par_obj.calc_esfuerzos()
         par_obj.resumen_esfuerzos()
 
@@ -64,7 +64,7 @@ def run_par_pipeline(
 
     # 4) Resistencia
     if resistance_params is not None:
-        par_obj.resistance_params(**resistance_params)
+        par_obj.resistance_params(resistance_params)
         par_obj.calc_resistencia()
         par_obj.resumen_resistencia()
 

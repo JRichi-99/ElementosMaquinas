@@ -1,4 +1,4 @@
-== RESUMEN DE COMPATIBILIDAD (ID 1) ==
+== RESUMEN DE COMPATIBILIDAD (ID 2) ==
 Tipo: recto | Acople: externos
 Dientes: Np=34 | Ng=102
 Ángulos [°]: φ_n=20.00 | φ_t=20.00 | ψ=0.00

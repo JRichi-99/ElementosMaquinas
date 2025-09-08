@@ -1,10 +1,10 @@
 trans_params = {
     "start_id": 0,
     "where": "pinion",
-    "H": 350,
+    "H": 110,
     "H_units": "si",
-    "Omega": None,
+    "Omega": 1000,
     "Omega_units": "rpm",
-    "T": 10.8,
+    "T": None,
     "T_units": "si",
 }

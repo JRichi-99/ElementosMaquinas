@@ -1,5 +1,5 @@
 == PARÁMETROS DEL SISTEMA ==
-Par de engranajes ID: 1
+Par de engranajes ID: 2
 Tipo: recto | Acople: externos | Sistema dientes: total
 Dientes: Np=34 | Ng=102 | m_g=3.00 | m_v=0.33
 C (distancia centros): 68.00 mm
@@ -15,7 +15,7 @@ Desplazamiento de perfil xp: 0.00
 
 Piñón                                        Engrane
 -----------------------------------------------------
-ID: 2                                        ID: 3
+ID: 4                                        ID: 5
 Rol: pinion                                  Rol: engrane
 Clase: recto                                 Clase: recto
 Acople: externos                             Acople: externos
