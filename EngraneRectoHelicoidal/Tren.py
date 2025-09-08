@@ -77,18 +77,18 @@ class TrenEngrane():
 
     def resumen_transmision(self, filename="resumen_transmision.txt"):
         """
-        Recorre la transmisión y escribe:
-        - Por PAR: m_g (local) y m_v (local), con 2 decimales.
-        - Por NODO (piñón/engrane): ω [rad/s, rpm] y T [N·m], 2 decimales.
-        - Relación TOTAL siguiendo la regla:
-            * salto engrane -> piñón  => multiplicar por m_g del par destino
-            * cualquier otro salto    => dividir por m_g (si aplica)
-            m_v_total = 1 / m_g_total.
+        Reglas:
+        - Par inicial (id 0):
+            * si 'engrane' no tiene conexiones => m_g_total = 1 / m_g(0)
+            * si 'pinion'  no tiene conexiones => m_g_total = m_g(0)
+            * si ambos lados conectados o 0 no existe => m_g_total = m_g(inicio)
+        - Cada salto u->v (por eje) es neutro; la operación se aplica en el PAR DESTINO:
+            * entrar por 'pinion'  => × m_g(v)
+            * entrar por 'engrane' => ÷ m_g(v)
+        También imprime resumen local (m_g, m_v, ω, T).
         """
         import numpy as np
-        from collections import deque, defaultdict
 
-        # ---------- helpers ----------
         def to_rpm(w):
             return None if w is None else (w * 60.0) / (2.0 * np.pi)
 
@@ -100,132 +100,118 @@ class TrenEngrane():
             except Exception:
                 return f"{x}" + (f" {suf}" if suf else "")
 
-        pad  = " " * 2
-        pad2 = " " * 6
+        if not self.pares:
+            with open(filename, "w", encoding="utf-8") as f:
+                f.write("No hay pares cargados.\n")
+            return
 
-        # ---------- 1) elegir nodo de referencia (primer lado con ω válido) ----------
-        ref = None  # (par_id, 'pinion'|'engrane')
-        for par_id in sorted(self.pares.keys()):
-            p = self.pares[par_id]
-            if getattr(p.pinion, "Omega", None) not in (None, 0):
-                ref = (par_id, "pinion"); break
-            if getattr(p.engrane, "Omega", None) not in (None, 0):
-                ref = (par_id, "engrane"); break
-        if ref is None:
-            # si no hay ω válidas, escogemos cualquiera para armar el grafo
-            any_id = next(iter(self.pares.keys()))
-            ref = (any_id, "pinion")
+        # ---------- 1) elegir inicio ----------
+        ids = sorted(self.pares.keys())
+        ids_con_mg = [pid for pid in ids if getattr(self.pares[pid], "m_g", None)]
+        if 0 in ids:
+            start_id = 0
+        elif ids_con_mg:
+            start_id = ids_con_mg[0]
+        else:
+            start_id = ids[0]
 
-        # ---------- 2) grafo por nodos (par_id, lado) ----------
-        # Aristas de malla (dentro del mismo par) y vía eje (entre pares).
-        adj = defaultdict(list)  # (par_id, side) -> list of neighbor (par_id, side)
+        visitados = set()
+        orden = []
+        pasos = []  # (u_id, v_id, my, to)
 
-        # malla dentro de cada par (bidireccional)
-        for pid, par in self.pares.items():
-            adj[(pid, "pinion")].append((pid, "engrane"))
-            adj[(pid, "engrane")].append((pid, "pinion"))
+        actual, previo = start_id, None
 
-        # conexiones vía eje (bidireccional)
-        for u_id, edges in self.conexiones.items():
-            for e in edges:
-                v_par = e.get("par")           # guardaste el OBJETO
-                v_id  = getattr(v_par, "id", v_par)
-                my    = e.get("my")            # 'pinion' o 'engrane' en u_id
-                to    = e.get("to")            # 'pinion' o 'engrane' en v_id
-                if my in ("pinion", "engrane") and to in ("pinion", "engrane"):
-                    adj[(u_id, my)].append((v_id, to))
+        # ---------- 2) construir cadena lineal (preferir salida por 'engrane' si hay opción) ----------
+        while True:
+            orden.append(actual)
+            visitados.add(actual)
 
-        # ---------- 3) BFS para obtener un camino ref -> final ----------
-        parent = {}
-        dq = deque([ref])
-        parent[ref] = None
+            siguiente, mejor_c = None, None
+            for c in self.conexiones.get(actual, []):
+                v_par = c.get("par"); v_id = getattr(v_par, "id", v_par)
+                if v_id == previo or v_id in visitados:
+                    continue
+                # preferimos conexión que salga por 'engrane'
+                if (mejor_c is None) or (c.get("my") == "engrane" and mejor_c.get("my") != "engrane"):
+                    mejor_c, siguiente = c, v_id
 
-        while dq:
-            node = dq.popleft()
-            for nbr in adj[node]:
-                if nbr not in parent:
-                    parent[nbr] = node
-                    dq.append(nbr)
+            if siguiente is None:
+                break
 
-        # elegir un "final": hoja alcanzable (grado 1) o el último visitado
-        reachable = set(parent.keys())
-        degrees = {n: 0 for n in reachable}
-        for u in reachable:
-            for v in adj[u]:
-                if v in reachable:
-                    degrees[u] += 1
-        hojas = [n for n, d in degrees.items() if d <= 1]
-        final_node = hojas[-1] if hojas else list(reachable)[-1]
+            pasos.append((actual, siguiente, mejor_c.get("my"), mejor_c.get("to")))
+            previo, actual = actual, siguiente
 
-        # reconstruir camino ref -> final
-        path = []
-        cur = final_node
-        while cur is not None:
-            path.append(cur)
-            cur = parent[cur]
-        path.reverse()  # desde ref a final
-
-        # ---------- 4) calcular m_g_total según TU REGLA ----------
-        mg_total = 1.0
-        for i in range(len(path) - 1):
-            (par_a, side_a) = path[i]
-            (par_b, side_b) = path[i + 1]
-            # m_g del par relevante (cuando multiplicamos usamos el del destino;
-            # cuando dividimos, el del origen; si falta, se salta)
-            if side_a == "engrane" and side_b == "pinion":
-                # MULTIPLICA por m_g del par destino
-                mg_b = getattr(self.pares[par_b], "m_g", None)
-                if mg_b not in (None, 0):
-                    mg_total *= mg_b
-            else:
-                # DIVIDE por m_g del par del paso (origen si viene de piñón a engrane)
-                mg_a = getattr(self.pares[par_a], "m_g", None)
-                if mg_a not in (None, 0):
-                    mg_total /= mg_a
-
-        mv_total = None if (mg_total is None or mg_total == 0) else (1.0 / mg_total)
-
-        # ---------- 5) armar líneas del reporte ----------
+        # ---------- 3) resumen local ----------
         lines = []
-        ref_par_id, ref_side = ref
-        ref_par = self.pares[ref_par_id]
-        w_ref = getattr(ref_par.pinion if ref_side == "pinion" else ref_par.engrane, "Omega", None)
-        lines.append(f"Referencia  :  Par {ref_par_id}  —  {ref_side}    ω_ref = {f2(w_ref,'rad/s')}   ({f2(to_rpm(w_ref),'rpm')})")
-        lines.append(f"Camino      :  " + "  →  ".join([f"{pid}.{('p' if s=='pinion' else 'e')}" for pid, s in path]))
+        lines.append("RESUMEN LOCAL POR PAR")
+        for pid in orden:
+            par = self.pares[pid]
+            mg = getattr(par, "m_g", None); mv = getattr(par, "m_v", None)
+            w_p = getattr(par.pinion, "Omega", None); t_p = getattr(par.pinion, "T", None)
+            w_e = getattr(par.engrane, "Omega", None); t_e = getattr(par.engrane, "T", None)
+
+            lines.append(f"- Par {pid}: m_g = {f2(mg)}   m_v = {f2(mv)}")
+            lines.append(f"    Piñón   →  ω = {f2(w_p,'rad/s')}  ({f2(to_rpm(w_p),'rpm')})   T = {f2(t_p,'N·m')}")
+            lines.append(f"    Engrane →  ω = {f2(w_e,'rad/s')}  ({f2(to_rpm(w_e),'rpm')})   T = {f2(t_e,'N·m')}")
         lines.append("")
 
-        # Mostrar m_g y m_v locales una sola vez por PAR (en orden de aparición en el camino)
-        vistos = set()
-        lines.append("RELACIONES LOCALES POR PAR")
-        for pid, s in path:
-            if pid in vistos:
-                continue
-            vistos.add(pid)
-            par = self.pares[pid]
-            lines.append(pad + f"Par {pid}   m_g = {f2(getattr(par, 'm_g', None))}     m_v = {f2(getattr(par, 'm_v', None))}")
-        lines.append("")
+        # ---------- 4) m_g_total inicial con la nueva condición para el par 0 ----------
+        detalle = []
+        def mg_par(pid):
+            mg = getattr(self.pares[pid], "m_g", None)
+            return float(mg) if (mg not in (None, 0)) else 1.0
 
-        # Mostrar nodos con ω y T (orden del camino)
-        lines.append("NODOS (ω y T)")
-        for pid, s in path:
-            par = self.pares[pid]
-            if s == "pinion":
-                w = getattr(par.pinion, "Omega", None)
-                t = getattr(par.pinion, "T", None)
-                label = "Piñón"
+        if 0 in self.pares:
+            mg0 = getattr(self.pares[0], "m_g", None)
+            mg0_val = float(mg0) if (mg0 not in (None, 0)) else 1.0
+            conns0 = self.conexiones.get(0, [])
+            has_p = any(c.get("my") == "pinion" for c in conns0)
+            has_e = any(c.get("my") == "engrane" for c in conns0)
+
+            if not has_e and has_p:
+                mg_total = 1.0 / mg0_val
+                detalle.append(f"Inicio en Par 0: engrane SIN conexión ⇒ m_g_total = 1 / m_g(0) = {mg_total:.4f}")
+            elif not has_p and has_e:
+                mg_total = mg0_val
+                detalle.append(f"Inicio en Par 0: piñón SIN conexión  ⇒ m_g_total = m_g(0) = {mg_total:.4f}")
             else:
-                w = getattr(par.engrane, "Omega", None)
-                t = getattr(par.engrane, "T", None)
-                label = "Engrane"
-            lines.append(pad + f"Par {pid}  —  {label:<7}  ω = {f2(w,'rad/s')}   ({f2(to_rpm(w),'rpm')})   T = {f2(t,'N·m')}")
+                # ambos conectados o aislado: usar m_g(start_id)
+                mg_total = mg_par(start_id)
+                detalle.append(f"Inicio en Par {start_id}: m_g_total = m_g({start_id}) = {mg_total:.4f}")
+        else:
+            mg_total = mg_par(start_id)
+            detalle.append(f"Inicio en Par {start_id}: m_g_total = m_g({start_id}) = {mg_total:.4f}")
 
-        lines.append("")
-        lines.append("RELACIÓN TOTAL DEL TREN")
-        lines.append(pad + f"m_g_total  = {f2(mg_total)}   (≈ N_final / N_inicial)")
-        lines.append(pad + f"m_v_total  = {f2(mv_total)}   (= 1 / m_g_total)")
+        # ---------- 5) aplicar regla en cada par destino ----------
+        for (u_id, v_id, my, to) in pasos:
+            mg_v = getattr(self.pares[v_id], "m_g", None)
+            if mg_v in (None, 0):
+                detalle.append(f"[{u_id} -> {v_id}] entro por {to} (sin m_g destino; no altera)")
+                continue
+
+            mg_v = float(mg_v)
+            if to == "pinion":
+                mg_total *= mg_v
+                detalle.append(f"[{u_id} -> {v_id}:pinion]  × m_g({v_id})={mg_v:.4f}  ⇒ m_g_total={mg_total:.4f}")
+            elif to == "engrane":
+                mg_total /= mg_v
+                detalle.append(f"[{u_id} -> {v_id}:engrane] ÷ m_g({v_id})={mg_v:.4f}  ⇒ m_g_total={mg_total:.4f}")
+            else:
+                detalle.append(f"[{u_id} -> {v_id}] lado destino '{to}' inválido; no altera")
+
+        mv_total = None if mg_total in (None, 0) else (1.0 / mg_total)
+
+        lines.append("TRANSMISIÓN TOTAL (saltos por eje neutros; operación en el par destino)")
+        lines += [f"  {s}" for s in detalle]
+        lines.append(f"\n  m_g_total = {f2(mg_total)}")
+        lines.append(f"  m_v_total = {f2(mv_total)}  (= 1 / m_g_total)")
         lines.append("")
 
-        # ---------- 6) escribir archivo ----------
+        # ---------- 6) guardar ----------
         with open(filename, "w", encoding="utf-8") as f:
             f.write("\n".join(lines))
+
+
+
+
 

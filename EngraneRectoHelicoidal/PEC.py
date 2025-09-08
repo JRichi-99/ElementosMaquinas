@@ -155,7 +155,13 @@ class ParEngranesCompatibilidad(ParEngranesGeometria):
             else:
                 lines.append("Verificación F > 3*m_t/tan(psi): N/A (F, m_t o psi no definidos)")
         else:
-            lines.append("Razones axiales: N/A (engranaje recto)")
+            if self.F <= 8*self.m or self.F >= 16*self.m:
+                lines.append("OJOOOOOOOOOOOO")
+                lines.append(f"Ancho de cara FUERA de rango recomendable {8*self.m} < {self.F} < {16*self.m}")
+            else:
+                lines.append(f"Ancho de cara DENTRO de rango recomendable {8*self.m} < {self.F} < {16*self.m}")
+        
+
 
         return lines
 

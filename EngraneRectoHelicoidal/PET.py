@@ -73,6 +73,7 @@ class ParEngranesTransmision(PEC):
         - Dientes N_p, N_g
         - Relación parcial m_g = N_g / N_p
         - ω (rad/s y rpm), T (N·m) y H (W) para piñón y engrane
+        - Fuerzas (Wt, Wr, Wa, Wn) y velocidad periférica Vt ya calculadas en los objetos
         - Estado de propagación (transmited)
         """
         import os
@@ -87,7 +88,7 @@ class ParEngranesTransmision(PEC):
             if x is None:
                 return "-"
             try:
-                return f"{x:.4f}{(' ' + suf) if suf else ''}"
+                return f"{float(x):.4f}{(' ' + suf) if suf else ''}"
             except Exception:
                 return f"{x}{(' ' + suf) if suf else ''}"
 
@@ -97,41 +98,56 @@ class ParEngranesTransmision(PEC):
         out_file = os.path.join(out_dir, f"transmision_{_id}.txt")
         os.makedirs(out_dir, exist_ok=True)
 
-        # datos piñón
+        # --- PIÑÓN ---
         Np = getattr(self.pinion, "N", None)
         w_p = getattr(self.pinion, "Omega", None)
         t_p = getattr(self.pinion, "T", None)
         h_p = getattr(self.pinion, "H", None)
         w_p_rpm = to_rpm(w_p)
+        Wt_p = getattr(self.pinion, "Wt", None)
+        Wr_p = getattr(self.pinion, "Wr", None)
+        Wa_p = getattr(self.pinion, "Wa", None)
+        Wn_p = getattr(self.pinion, "Wn", None)
+        Vt_p = getattr(self.pinion, "Vt", None)
 
-        # datos engrane
+        # --- ENGRAJE ---
         Ng = getattr(self.engrane, "N", None)
         w_g = getattr(self.engrane, "Omega", None)
         t_g = getattr(self.engrane, "T", None)
         h_g = getattr(self.engrane, "H", None)
         w_g_rpm = to_rpm(w_g)
+        Wt_g = getattr(self.engrane, "Wt", None)
+        Wr_g = getattr(self.engrane, "Wr", None)
+        Wa_g = getattr(self.engrane, "Wa", None)
+        Wn_g = getattr(self.engrane, "Wn", None)
+        Vt_g = getattr(self.engrane, "Vt", None)
 
         lines = []
         lines.append(f"Resumen transmisión del Par {fmt(_id)}")
         lines.append("=" * 72)
-        lines.append(f"Estado de propagación (transmited): {self.transmited}")
+        lines.append(f"Estado de propagación (transmited): {getattr(self, 'transmited', None)}")
         lines.append("")
         lines.append("GEOMETRÍA")
         lines.append(f"  * Dientes: N_p={Np}   N_g={Ng}")
-        lines.append(f"  * Ventaja mecanica: m_g = N_g/N_p = {fmt(self.m_g)}")
-        lines.append(f"  * Relacion velocidades : m_v = N_p/N_g = {fmt(self.m_v)}")
+        lines.append(f"  * Ventaja mecánica: m_g = N_g/N_p = {fmt(getattr(self, 'm_g', None))}")
+        lines.append(f"  * Relación velocidades : m_v = N_p/N_g = {fmt(getattr(self, 'm_v', None))}")
         lines.append("")
-        lines.append("CINEMÁTICA Y ESFUERZOS")
+        lines.append("CINEMÁTICA Y FUERZAS")
         lines.append("  Piñón")
         lines.append(f"    - ω = {fmt(w_p,'rad/s')}  ({fmt(w_p_rpm,'rpm')})")
         lines.append(f"    - T = {fmt(t_p,'N·m')}   H = {fmt(h_p,'W')}")
+        lines.append(f"    - Wt={fmt(Wt_p,'N')}   Wr={fmt(Wr_p,'N')}   Wa={fmt(Wa_p,'N')}   Wn={fmt(Wn_p,'N')}")
+        lines.append(f"    - Vt = {fmt(Vt_p,'m/s')}")
         lines.append("  Engrane")
         lines.append(f"    - ω = {fmt(w_g,'rad/s')}  ({fmt(w_g_rpm,'rpm')})")
         lines.append(f"    - T = {fmt(t_g,'N·m')}   H = {fmt(h_g,'W')}")
+        lines.append(f"    - Wt={fmt(Wt_g,'N')}   Wr={fmt(Wr_g,'N')}   Wa={fmt(Wa_g,'N')}   Wn={fmt(Wn_g,'N')}")
+        lines.append(f"    - Vt = {fmt(Vt_g,'m/s')}")
         lines.append("")
 
         with open(out_file, "w", encoding="utf-8") as f:
             f.write("\n".join(lines))
+
 
 
 

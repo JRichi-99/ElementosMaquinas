@@ -12,6 +12,7 @@ class ParEngranesGeometria:
 
         # Parámetros del par
         self.C = None      # distancia entre centros
+        self.Ancho = None
         self.Z = None      # longitud de línea de acción
         self.F = None      # ancho de cara
 
@@ -43,12 +44,13 @@ class ParEngranesGeometria:
         self.clase = None               # 'recto' | 'heli'
         self.acople = 'externos'        # 'externos' | 'internos'
         self.sistema_dientes = None  # 'total' | 'parcial'
-
+        self.loaded = False
         # Desplazamientos de perfil
         self.xp = 0.0            # desplazamiento piñón
 
     # ----------------- Setup -----------------
     def set_par(self, phi_n, psi, N_pinion, N_engrane, F_pinion, F_engrane, sistema_dientes='total',acople='externos', m=None, pi_n=None, xp=0.0):
+        self.loaded = True
         self.sistema_dientes = sistema_dientes
         self.xp = xp
         # Guardar tipo y acople con validación
@@ -128,6 +130,7 @@ class ParEngranesGeometria:
     
     def compute_couple(self):
         self.C = self.engrane.r_p+self.pinion.r_p if self.acople == 'externos' else abs(self.engrane.r_p - self.pinion.r_p)
+        self.Ancho = self.C+self.engrane.r_p+self.pinion.r_p
         self.Z = (np.sqrt((self.pinion.d_p/2 + self.m)**2 - ((self.pinion.d_p/2) * np.cos(self.phi_t))**2)
                 + np.sqrt((self.engrane.d_p/2 + self.m)**2 - ((self.engrane.d_p/2) * np.cos(self.phi_t))**2)
                 - self.C * np.sin(self.phi_t))
@@ -261,6 +264,7 @@ class ParEngranesGeometria:
 
         # Geometría global
         sistema_lines.append(f"C (distancia centros): {fmt(self.C)} mm")
+        sistema_lines.append(f"Ancho total  {fmt(self.Ancho)} mm")
         sistema_lines.append(f"Z (long. línea de acción): {fmt(self.Z)} mm")
         sistema_lines.append(f"F (ancho de cara común): {fmt(self.F)} mm")
 

@@ -1,0 +1,18 @@
+== RESUMEN DE COMPATIBILIDAD (ID 1) ==
+Tipo: recto | Acople: externos
+Dientes: Np=12 | Ng=30
+Ángulos [°]: φ_n=20.00 | φ_t=20.00 | ψ=0.00
+m_p=1.54 | m_f=- | m_n=1
+
+-- Interferencia --
+Criterio 1 NO se cumple (engrane): 0.17 < 0.12
+Criterio 2 NO se cumple (piñón): 0.44 < 0.12
+Criterio 3 NO se cumple: 0.44 < 0.12
+Interferencia: SÍ
+
+-- Contacto --
+Razón de contacto m_p OK: 1.54
+Ancho de cara DENTRO de rango recomendable 4.0 < 5.0 < 8.0
+
+-- Dientes mínimos --
+Piñón con dientes INSUFICIENTES: 12 < 13
