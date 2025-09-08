@@ -1,9 +1,9 @@
 == PARÁMETROS DEL SISTEMA ==
 Par de engranajes ID: 1
 Tipo: recto | Acople: externos | Sistema dientes: total
-Dientes: Np=34 | Ng=102 | m_g=3.00 | m_v=0.33
-C (distancia centros): 68.00 mm
-Ancho total  136.00 mm
+Dientes: Np=34 | Ng=100 | m_g=2.94 | m_v=0.34
+C (distancia centros): 67.00 mm
+Ancho total  134.00 mm + holgura 2m 2.00 mm = 136.00 mm
 Z (long. línea de acción): 5.22 mm
 F (ancho de cara común): 10 mm
 Módulos: m=1.00 mm | m_t=1.00 mm | m_x=- mm | 
@@ -20,27 +20,27 @@ Rol: pinion                                  Rol: engrane
 Clase: recto                                 Clase: recto
 Acople: externos                             Acople: externos
 Sistema de dientes: total                    Sistema de dientes: total
-Número de dientes N: 34                      Número de dientes N: 102
-Numero virtual de dientes Ne 34.00           Numero virtual de dientes Ne 102.00
+Número de dientes N: 34                      Número de dientes N: 100
+Numero virtual de dientes Ne 34.00           Numero virtual de dientes Ne 100.00
 m (módulo normal): 1.00 mm                   m (módulo normal): 1.00 mm
 m_t (módulo transversal): 1.00 mm            m_t (módulo transversal): 1.00 mm
 φ_n (ángulo presión normal): 20.00 °         φ_n (ángulo presión normal): 20.00 °
 φ_t (ángulo presión transversal): 20.00 °    φ_t (ángulo presión transversal): 20.00 °
 ψ (ángulo de hélice): 0.00 °                 ψ (ángulo de hélice): 0.00 °
 ψ_b (ángulo de hélice en base): 0.00 °       ψ_b (ángulo de hélice en base): 0.00 °
-d_p (diámetro paso): 34.00 mm                d_p (diámetro paso): 102.00 mm
-r_p (radio paso): 17.00 mm                   r_p (radio paso): 51.00 mm
-d_b (diámetro base): 31.95 mm                d_b (diámetro base): 95.85 mm
-r_b (radio base): 15.97 mm                   r_b (radio base): 47.92 mm
-d_a (diámetro exterior): 36.00 mm            d_a (diámetro exterior): 104.00 mm
-r_a (radio exterior): 18.00 mm               r_a (radio exterior): 52.00 mm
-d_r (diámetro raíz): 31.50 mm                d_r (diámetro raíz): 99.50 mm
-r_r (radio raíz): 15.75 mm                   r_r (radio raíz): 49.75 mm
+d_p (diámetro paso): 34.00 mm                d_p (diámetro paso): 100.00 mm
+r_p (radio paso): 17.00 mm                   r_p (radio paso): 50.00 mm
+d_b (diámetro base): 31.95 mm                d_b (diámetro base): 93.97 mm
+r_b (radio base): 15.97 mm                   r_b (radio base): 46.98 mm
+d_a (diámetro exterior): 36.00 mm            d_a (diámetro exterior): 102.00 mm
+r_a (radio exterior): 18.00 mm               r_a (radio exterior): 51.00 mm
+d_r (diámetro raíz): 31.50 mm                d_r (diámetro raíz): 97.50 mm
+r_r (radio raíz): 15.75 mm                   r_r (radio raíz): 48.75 mm
 a (addendum): 1.00 mm                        a (addendum): 1.00 mm
 b (dedendum): 1.25 mm                        b (dedendum): 1.25 mm
 ht (altura total): 2.25 mm                   ht (altura total): 2.25 mm
 e (espesor en paso): 1.57 mm                 e (espesor en paso): 1.57 mm
 Tolerancia: 0.25 mm                          Tolerancia: 0.25 mm
 Desplazamiento de perfil xp: 0.00            Desplazamiento de perfil xp: 0.00
-Radio de curvatura: 7.36 mm                  Radio de curvatura: 15.90 mm
+Radio de curvatura: 7.36 mm                  Radio de curvatura: 15.56 mm
 Ancho de cara F: 10.00 mm                    Ancho de cara F: 10.00 mm

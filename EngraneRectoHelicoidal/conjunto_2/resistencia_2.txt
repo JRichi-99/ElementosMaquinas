@@ -1,6 +1,6 @@
 ================= RESUMEN DE RESISTENCIA (ID 2) =================
 Tipo: recto | Acople: externos
-Np=34 | Ng=102 | m_g=Ng/Np=3.00
+Np=34 | Ng=100 | m_g=Ng/Np=2.94
 
 ---- Parámetros de servicio ----
 Temperatura [°C]                  20.00
@@ -21,13 +21,13 @@ pSFC (cont.) [MPa]                  942 |            942
 HB (dureza) [-]                     300 |            300
 
 ---- Tensiones ----
-sigma_f [MPa]                    279.41 |         255.12
-sigma_c [MPa]                    951.79 |         549.52
+sigma_f [MPa]                    268.84 |         245.46
+sigma_c [MPa]                    936.85 |         546.27
 
 ---- Seguridad ----
 safe_f (perm.) [MPa]             324.00 |         324.00
 safe_c (perm.) [MPa]             942.00 |         942.00
-factor_f [-]                       1.16 |           1.27
-factor_c [-]                       0.98 |           2.94
+factor_f [-]                       1.21 |           1.32
+factor_c [-]                       1.01 |           2.97
 cumple flexión                       OK |             OK
-cumple contacto                      NO |             OK
+cumple contacto                      OK |             OK

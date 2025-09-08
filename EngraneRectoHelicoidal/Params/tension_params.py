@@ -11,7 +11,7 @@ tension_params0 = {
     "K_I_eng": 1.00,   
     "Jp_pin": 0.42,       # PAG 35 GRAFICO 27 PARA RECTO 28 HELI
     "Jmod_pin": 1,     # 1 SI ES RECTO PAG 36 GRAFICO 29
-    "Jp_eng": 0.46,
+    "Jp_eng": 0.44,
     "Jmod_eng": 1,
 
     "C_p": 191.0,   # √MPa       # PAG 31 TABLA 15
@@ -34,7 +34,7 @@ tension_params1 = {
     "K_I_eng": 1.00,
     "Jp_pin": 0.42,
     "Jmod_pin": 1,
-    "Jp_eng": 0.46,
+    "Jp_eng": 0.44,
     "Jmod_eng": 1,
 
     "C_p": 191.0,   # √MPa

@@ -264,7 +264,8 @@ class ParEngranesGeometria:
 
         # Geometría global
         sistema_lines.append(f"C (distancia centros): {fmt(self.C)} mm")
-        sistema_lines.append(f"Ancho total  {fmt(self.Ancho)} mm")
+        a=self.Ancho + self.m*2
+        sistema_lines.append(f"Ancho total  {fmt(self.Ancho)} mm + holgura 2m {fmt(self.m*2)} mm = {fmt(a)} mm")
         sistema_lines.append(f"Z (long. línea de acción): {fmt(self.Z)} mm")
         sistema_lines.append(f"F (ancho de cara común): {fmt(self.F)} mm")
 

@@ -3,9 +3,9 @@ Resumen transmisión del Par 0.0000
 Estado de propagación (transmited): True
 
 GEOMETRÍA
-  * Dientes: N_p=34   N_g=102
-  * Ventaja mecánica: m_g = N_g/N_p = 3.0000
-  * Relación velocidades : m_v = N_p/N_g = 0.3333
+  * Dientes: N_p=34   N_g=100
+  * Ventaja mecánica: m_g = N_g/N_p = 2.9412
+  * Relación velocidades : m_v = N_p/N_g = 0.3400
 
 CINEMÁTICA Y FUERZAS
   Piñón
@@ -14,7 +14,7 @@ CINEMÁTICA Y FUERZAS
     - Wt=61.7896 N   Wr=22.4896 N   Wa=0.0000 N   Wn=65.7551 N
     - Vt = 1.7802 m/s
   Engrane
-    - ω = 34.9066 rad/s  (333.3333 rpm)
-    - T = 3.1513 N·m   H = 110.0000 W
+    - ω = 35.6047 rad/s  (340.0000 rpm)
+    - T = 3.0895 N·m   H = 110.0000 W
     - Wt=61.7896 N   Wr=22.4896 N   Wa=0.0000 N   Wn=65.7551 N
     - Vt = 1.7802 m/s

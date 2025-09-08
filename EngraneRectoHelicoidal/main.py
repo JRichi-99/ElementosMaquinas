@@ -1,9 +1,9 @@
 from Tren import TrenEngrane
 from PER import ParEngranesResistencia as PER
-from Params.geo_params import *
-from Params.trans_params import *
-from Params.tension_params import *
-from Params.resist_params import *
+from params.geo_params import *
+from params.trans_params import *
+from params.tension_params import *
+from params.resist_params import *
 from flux import run_par_pipeline
 
 """geometria','transmision','esfuerzos','resistencia"""

@@ -1,6 +1,6 @@
 == RESUMEN DE COMPATIBILIDAD (ID 1) ==
 Tipo: recto | Acople: externos
-Dientes: Np=34 | Ng=102
+Dientes: Np=34 | Ng=100
 Ángulos [°]: φ_n=20.00 | φ_t=20.00 | ψ=0.00
 m_p=1.77 | m_f=- | m_n=1
 
