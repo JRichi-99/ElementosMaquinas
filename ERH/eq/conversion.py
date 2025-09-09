@@ -56,3 +56,15 @@ def lb_ft_a_nm(torque_lb_ft: float) -> float:
     valor = round(torque_lb_ft / 0.73756, 2)
     print(f"lb_ft_a_nm({torque_lb_ft}) = {valor} N·m")
     return valor
+
+def inch_a_mm(inch: float) -> float:
+    """Convierte de pulgadas a mm (aprox 2 decimales)."""
+    valor = round(inch * 25.4, 2)
+    print(f"inch_a_mm({inch}) = {valor} mm")
+    return valor
+
+def mm_a_inch(mm: float) -> float:
+    """Convierte de mm a pulgadas (aprox 2 decimales)."""
+    valor = round(mm / 25.4, 2)
+    print(f"mm_a_inch({mm}) = {valor} inch")
+    return valor
