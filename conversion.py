@@ -10,5 +10,3 @@ funciones_disponibles = [
     "lb_ft_a_nm(torque_lb_ft)# lbf·ft → N·m",
 ]
 
-rpm_a_rad_s(1000)
-

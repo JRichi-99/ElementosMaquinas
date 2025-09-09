@@ -1,0 +1,36 @@
+== RESUMEN DE ESFUERZOS (ID 1) ==
+Tipo: heli | Acople: externos
+Relación mg=Ng/Np: 2.00
+
+--- Parámetros usados ---
+K_A   : 1    K_M   : 1.60    K_S   : 1
+K_B   : 1    K_V   : 0.76
+                            PIÑÓN |        ENGRANE
+-------------------+--------------------------------
+K_I [-]                      1.00 |           1.00
+
+C_p   : 191 [√MPa]    C_F   : 1    Q_v   : 6
+I (AGMA)  : 0.18    F (mm)    : 33.80
+Jp_pin    : 0.32    Jmod_pin  : 1    J_pin (ef)  : 0.32
+Jp_eng    : 0.32    Jmod_eng  : 1    J_eng (ef)  : 0.32
+
+                            PIÑÓN |        ENGRANE
+-------------------+--------------------------------
+--- Carga ---
+T                            5.40 |          10.80 [N·m]
+Omega                       64.81 |          32.41 [rad/s]
+Omega                      618.94 |         309.47 [rpm]
+H                          350.00 |         350.00 [W]
+
+--- Fuerzas ---
+Wt                         131.41 |         131.41 [N]
+Wr                          66.09 |          66.09 [N]
+Wa                          53.09 |          53.09 [N]
+Wn                         156.38 |         156.38 [N]
+
+--- Cinemática ---
+Vt                           2.66 |           2.66 [m/s]
+
+--- Tensiones ---
+sigma_f                      5.57 |           5.57 [MPa]
+sigma_c                    140.23 |          99.16 [MPa]

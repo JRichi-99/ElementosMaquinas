@@ -1,0 +1,14 @@
+RESUMEN LOCAL POR PAR
+- Par 0: m_g = 2.50   m_v = 0.40
+    Piñón   →  ω = 162.04 rad/s  (1547.34 rpm)   T = 2.16 N·m
+    Engrane →  ω = 64.81 rad/s  (618.94 rpm)   T = 5.40 N·m
+- Par 1: m_g = 2.00   m_v = 0.50
+    Piñón   →  ω = 64.81 rad/s  (618.94 rpm)   T = 5.40 N·m
+    Engrane →  ω = 32.41 rad/s  (309.47 rpm)   T = 10.80 N·m
+
+TRANSMISIÓN TOTAL (saltos por eje neutros; operación en el par destino)
+  Inicio en Par 0: piñón SIN conexión  ⇒ m_g_total = m_g(0) = 2.5000
+  [0 -> 1:pinion]  × m_g(1)=2.0000  ⇒ m_g_total=5.0000
+
+  m_g_total = 5.00
+  m_v_total = 0.20  (= 1 / m_g_total)

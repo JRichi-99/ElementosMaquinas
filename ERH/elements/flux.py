@@ -46,12 +46,12 @@ def run_par_pipeline(
     par_obj.resumen_compatibilidad()
 
     if stage == 0:
-        return par_obj
+        return
 
     par_obj.resumen_transmision()
 
     if stage == 1:
-        return par_obj
+        return 
 
     # 3) Esfuerzos
     if tension_params is not None:
@@ -60,7 +60,7 @@ def run_par_pipeline(
         par_obj.resumen_esfuerzos()
 
     if stage == 2:
-        return par_obj
+        return 
 
     # 4) Resistencia
     if resistance_params is not None:
@@ -68,4 +68,3 @@ def run_par_pipeline(
         par_obj.calc_resistencia()
         par_obj.resumen_resistencia()
 
-    return par_obj

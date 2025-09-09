@@ -82,12 +82,10 @@ class ParEngranesEsfuerzo(ParEngranesTransmision):
 
         # --- B ---
         if Qv >= 6 and Qv <= 12:
-            B = ((12.0 - Qv) / 4.0) ** (2.0 / 3.0)
+            B = (((12.0 - Qv)) ** (2.0 / 3.0))/ 4.0
         elif Qv < 6:
             B = 1.0
         else:  # Qv > 12
-            B = ((12.0 - 12.0) / 4.0) ** (2.0 / 3.0)  # → 0
-            # o directamente B = 0.0
             B = 0.0
 
         # --- A ---

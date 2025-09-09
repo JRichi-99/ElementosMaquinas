@@ -53,25 +53,20 @@ class TrenEngrane():
                                 f"Más de una conexión en el eje '{lado}' del par {par_obj.id}: {detalles}"
                             )
 
-                    # --- si hay 0 o 1 por eje, intentamos propagar usando la que exista ---
-                    for lado_my in ("pinion", "engrane"):
-                        c = por_lado[lado_my][0] if por_lado[lado_my] else None
-                        if not c:
-                            continue
+                        for c in conexiones:
+                            par_conectado: PER = c["par"]  # aquí guardas el OBJETO
+                            if par_conectado.transmited:
+                                eto = c["to"]
+                                if eto == "pinion":
+                                    Hc, Wc, Tc = par_conectado.pinion.H, par_conectado.pinion.Omega, par_conectado.pinion.T
+                                elif eto == "engrane":
+                                    Hc, Wc, Tc = par_conectado.engrane.H, par_conectado.engrane.Omega, par_conectado.engrane.T
+                                else:
+                                    raise ValueError(f"Lado 'to' inválido en conexión: {eto}")
 
-                        par_conectado: PER = c["par"]  # aquí guardas el OBJETO
-                        if par_conectado.transmited:
-                            eto = c["to"]
-                            if eto == "pinion":
-                                Hc, Wc, Tc = par_conectado.pinion.H, par_conectado.pinion.Omega, par_conectado.pinion.T
-                            elif eto == "engrane":
-                                Hc, Wc, Tc = par_conectado.engrane.H, par_conectado.engrane.Omega, par_conectado.engrane.T
-                            else:
-                                raise ValueError(f"Lado 'to' inválido en conexión: {eto}")
-
-                            par_obj.set_load_si(Hc, Wc, Tc, where=lado_my)
-                            finish = False  # hubo progreso; seguir iterando
-                            break  # pasamos al siguiente par
+                                par_obj.set_load_si(Hc, Wc, Tc, where=c["my"])
+                                finish = False  # hubo progreso; seguir iterando
+                                break  # pasamos al siguiente par
 
 
 
