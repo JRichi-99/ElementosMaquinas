@@ -8,4 +8,6 @@ funciones_disponibles = [
     "nm_a_lb_ft(torque_nm)   # N·m → lbf·ft",
     "lb_in_a_nm(torque_lb_in)# lbf·in → N·m",
     "lb_ft_a_nm(torque_lb_ft)# lbf·ft → N·m",
+    "inch_a_mm",
+    "mm_a_inch"
 ]
