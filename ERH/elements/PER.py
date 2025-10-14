@@ -4,7 +4,8 @@ import numpy as np
 class ParEngranesResistencia(PEE):
     def __init__(self):
         super().__init__()
-        self.K_L = None  # factor de vida
+        self.K_L_p = None  # factor de vida
+        self.K_L_g = None
         self.K_T = None  # factor de temperatura
         self.K_R = None  # factor de confiabilidad
         self.C_L = None  # factor de lubricación (contacto)
@@ -20,6 +21,8 @@ class ParEngranesResistencia(PEE):
         self.pSFC_p = None
         self.HB_p = None
         self.HB_g = None
+
+
   
         
     def resistance_params(self, parametros: dict):
@@ -48,6 +51,8 @@ class ParEngranesResistencia(PEE):
         self.calc_C_H()
         self.calc_K_T()
         self.calc_K_R()
+        self.calc_K_L()
+        self.calc_C_L()
         if pinion:
             self.pinion.calc_resistance(
                 K_L=self.K_L_p,
@@ -69,6 +74,23 @@ class ParEngranesResistencia(PEE):
                 pSFC = self.pSFC_g
             )
     
+    def calc_K_L(self):
+        K_L_g = 1.6831*self.ciclos_g**(-0.0323) 
+        K_L_p = 1.6831*self.ciclos_p**(-0.0323) 
+        if self.K_L_g is None:
+            self.K_L_g = K_L_g
+        if self.K_L_p is None:
+            self.K_L_p = K_L_p
+    
+    def calc_C_L(self):
+        C_L_g = 2.466*self.ciclos_g**(-0.056)
+        C_L_p = 2.466*self.ciclos_p**(-0.056)
+        if self.C_L_g is None:
+            self.C_L_g = C_L_g
+        if self.C_L_p is None:
+            self.C_L_p = C_L_p
+
+
     def calc_C_H(self):
         if self.C_H_p is not None: 
             print("Se selecciono valor de C_H_p", self.C_H_p)
@@ -221,6 +243,71 @@ class ParEngranesResistencia(PEE):
             f.write(texto)
         return ruta
 
+    def evaluar_resistencia(self, umbral: float = 1.45):
+        """
+        Retorna (cumple, data), donde:
+        - cumple: True si TODOS los factores de seguridad (flexión y picadura) en piñón y engrane >= umbral.
+        - data: {
+            "pinion": {
+                "flexion":  {"esfuerzo": sigma_f_p, "resistencia": safe_f_p, "factor": factor_f_p},
+                "picadura":{"esfuerzo": sigma_c_p, "resistencia": safe_c_p, "factor": factor_c_p}
+            },
+            "engrane": {
+                "flexion":  {"esfuerzo": sigma_f_g, "resistencia": safe_f_g, "factor": factor_f_g},
+                "picadura":{"esfuerzo": sigma_c_g, "resistencia": safe_c_g, "factor": factor_c_g}
+            }
+            }
+
+        Requisitos:
+        - self.pinion y self.engrane inicializados.
+        - Tensiones y resistencias calculadas previamente en p/g:
+            sigma_f, sigma_c, safe_f, safe_c, factor_f, factor_c
+        """
+        # Verificaciones básicas
+        if getattr(self, "pinion", None) is None or getattr(self, "engrane", None) is None:
+            raise RuntimeError("Faltan engranes: inicializa el par y calcula esfuerzos/resistencia antes de evaluar.")
+
+        p, g = self.pinion, self.engrane
+
+        # Helper seguro para obtener float o None
+        def _f(x):
+            try:
+                return None if x is None else float(x)
+            except Exception:
+                return None
+
+        # Extraer valores del piñón
+        sigma_f_p = _f(getattr(p, "sigma_f", None))
+        sigma_c_p = _f(getattr(p, "sigma_c", None))
+        safe_f_p  = _f(getattr(p, "safe_f",  None))
+        safe_c_p  = _f(getattr(p, "safe_c",  None))
+        fact_f_p  = _f(getattr(p, "factor_f", None))
+        fact_c_p  = _f(getattr(p, "factor_c", None))
+
+        # Extraer valores del engrane
+        sigma_f_g = _f(getattr(g, "sigma_f", None))
+        sigma_c_g = _f(getattr(g, "sigma_c", None))
+        safe_f_g  = _f(getattr(g, "safe_f",  None))
+        safe_c_g  = _f(getattr(g, "safe_c",  None))
+        fact_f_g  = _f(getattr(g, "factor_f", None))
+        fact_c_g  = _f(getattr(g, "factor_c", None))
+
+        data = {
+            "pinion": {
+                "flexion":  {"esfuerzo": sigma_f_p, "resistencia": safe_f_p, "factor": fact_f_p},
+                "picadura": {"esfuerzo": sigma_c_p, "resistencia": safe_c_p, "factor": fact_c_p},
+            },
+            "engrane": {
+                "flexion":  {"esfuerzo": sigma_f_g, "resistencia": safe_f_g, "factor": fact_f_g},
+                "picadura": {"esfuerzo": sigma_c_g, "resistencia": safe_c_g, "factor": fact_c_g},
+            }
+        }
+
+        # Regla de decisión: todos los factores definidos y >= umbral
+        factores = (fact_f_p, fact_c_p, fact_f_g, fact_c_g)
+        cumple = all((f is not None and f >= umbral) for f in factores)
+
+        return cumple, data
 
 
 

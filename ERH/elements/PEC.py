@@ -49,7 +49,7 @@ class ParEngranesCompatibilidad(ParEngranesGeometria):
         print("=== Dientes desde transmisión ===")
         print(f"m (módulo normal): {self._fmt(m)} mm")
         print(f"Ancho de cara recomendable mayor a {8*m} y menor a {16*m}")
-        print(f"φ_n (presion): {self._deg(phi_t)}°")
+        print(f"φ_t (presion): {self._deg(phi_t)}°")
         print(f"ψ (hélice): {self._deg(psi)}°")
         print(msg)
         print(f"Relación m_g = Ng/Np: {self._fmt(m_g, 3)}")
@@ -155,7 +155,7 @@ class ParEngranesCompatibilidad(ParEngranesGeometria):
             else:
                 lines.append("Verificación F > 3*m_t/tan(psi): N/A (F, m_t o psi no definidos)")
         else:
-            if self.F <= 8*self.m or self.F >= 16*self.m:
+            if self.F < 8*self.m or self.F > 16*self.m:
                 lines.append("OJOOOOOOOOOOOO")
                 lines.append(f"Ancho de cara FUERA de rango recomendable {8*self.m} < {self.F} < {16*self.m}")
             else:
@@ -294,3 +294,39 @@ class ParEngranesCompatibilidad(ParEngranesGeometria):
             f.write(texto)
 
         return texto
+
+    def es_compatible(self) -> bool:
+        """
+        Retorna True si el par de engranes cumple TODAS las condiciones
+        de compatibilidad (sin interferencia, contacto correcto y dientes suficientes).
+        Retorna False en caso contrario o si ocurre un error en las verificaciones.
+        """
+        try:
+            # 1. Interferencia
+            inter_lines = self.check_interference()
+            if self.interferencia:  # en tu código, True significa que HAY interferencia
+                return False
+
+            # 2. Contacto
+            contacto_lines = self.check_contacto()
+            for line in contacto_lines:
+                if "NO" in line or "INSUFICIENTE" in line or "FUERA" in line or "OJOOOO" in line:
+                    return False
+
+            # 3. Mínimo de dientes
+            if self.pinion_min_N is None:
+                # recalcular por seguridad
+                self.minimo_dientes(
+                    clase=self.clase, phi_t=self.phi_t,
+                    psi=self.psi, m_g=self.m_g,
+                    sistema_dientes=self.sistema_dientes
+                )
+            if self.pinion_min_N is None:
+                return False
+            if int(self.pinion.N) < int(self.pinion_min_N):
+                return False
+
+            return True
+
+        except Exception:
+            return False

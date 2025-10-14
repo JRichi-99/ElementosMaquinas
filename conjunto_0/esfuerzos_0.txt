@@ -1,36 +1,36 @@
 == RESUMEN DE ESFUERZOS (ID 0) ==
 Tipo: heli | Acople: externos
-Relación mg=Ng/Np: 2.50
+Relación mg=Ng/Np: 1.55
 
 --- Parámetros usados ---
-K_A   : 1    K_M   : 1.60    K_S   : 1
-K_B   : 1    K_V   : 0.72
+K_A   : 3    K_M   : 1.50    K_S   : 1
+K_B   : 1    K_V   : 0.81
                             PIÑÓN |        ENGRANE
 -------------------+--------------------------------
 K_I [-]                      1.00 |           1.00
 
-C_p   : 191 [√MPa]    C_F   : 1    Q_v   : 6
-I (AGMA)  : 0.19    F (mm)    : 33.80
-Jp_pin    : 0.21    Jmod_pin  : 1    J_pin (ef)  : 0.21
-Jp_eng    : 0.32    Jmod_eng  : 1    J_eng (ef)  : 0.32
+C_p   : 191 [√MPa]    C_F   : 1    Q_v   : 10
+I (AGMA)  : 0.17    F (mm)    : 64
+Jp_pin    : 0.45    Jmod_pin  : 1    J_pin (ef)  : 0.45
+Jp_eng    : 0.45    Jmod_eng  : 1    J_eng (ef)  : 0.45
 
                             PIÑÓN |        ENGRANE
 -------------------+--------------------------------
 --- Carga ---
-T                            2.16 |           5.40 [N·m]
-Omega                      162.04 |          64.81 [rad/s]
-Omega                     1547.34 |         618.94 [rpm]
-H                          350.00 |         350.00 [W]
+T                          242.11 |         374.88 [N·m]
+Omega                      261.80 |         169.08 [rad/s]
+Omega                     2500.00 |        1614.58 [rpm]
+H                        63384.50 |       63384.50 [W]
 
 --- Fuerzas ---
-Wt                          78.85 |          78.85 [N]
-Wr                          39.65 |          39.65 [N]
-Wa                          31.86 |          31.86 [N]
-Wn                          93.83 |          93.83 [N]
+Wt                        3620.67 |        3620.67 [N]
+Wr                        1421.31 |        1421.31 [N]
+Wa                        1462.84 |        1462.84 [N]
+Wn                        4155.63 |        4155.63 [N]
 
 --- Cinemática ---
-Vt                           4.44 |           4.44 [m/s]
+Vt                          17.51 |          17.51 [m/s]
 
 --- Tensiones ---
-sigma_f                      5.44 |           3.57 [MPa]
-sigma_c                    134.99 |          85.37 [MPa]
+sigma_f                    162.11 |         162.11 [MPa]
+sigma_c                    714.56 |         574.25 [MPa]

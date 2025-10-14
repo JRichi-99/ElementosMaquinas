@@ -33,8 +33,7 @@ class ParEngranesEsfuerzo(ParEngranesTransmision):
 
 
     def calc_esfuerzos(self, pinion=True, engrane=True):
-        self.J_pin = self.Jp_pin*self.Jmod_pin
-        self.J_eng = self.Jp_eng*self.Jmod_eng
+        self.calc_J()
         self.calc_I()
         self.calc_k_v()
         if pinion:
@@ -96,6 +95,14 @@ class ParEngranesEsfuerzo(ParEngranesTransmision):
         K_v = (A / denom) ** B
 
         self.K_V = K_v
+
+    def calc_J(self):
+        if self.J_eng is None:
+            #print("Entro J_eng: ", self.J_eng)
+            self.J_eng = self.Jp_eng*self.Jmod_eng
+        if self.J_pin is None:
+            #print("Entro J_pin: ", self.J_pin)
+            self.J_pin = self.Jp_pin*self.Jmod_pin
 
 
     def calc_I(self):

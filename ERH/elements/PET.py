@@ -6,16 +6,14 @@ class ParEngranesTransmision(PEC):
         super().__init__()
         self.H = None
         self.transmited = False
+        self.ciclos_p = None
+        self.ciclos_g = None
 
-    def print_ciclos(self, horas, dias, years):
-        ciclos_p = self.pinion.Omega * 60 / (2*np.pi) * 60 * horas * dias * years
-        ciclos_g = self.engrane.Omega * 60 / (2*np.pi) * 60 * horas * dias * years
-
-        print()
-        print(f"Par engrane {self.id}")
-        print("Ciclos piñón  :", f"{ciclos_p:.3e}")
-        print("Ciclos engrane:", f"{ciclos_g:.3e}")
-        print()
+    def set_ciclos(self, horas, dias, years):
+        self.ciclos_p = self.pinion.Omega * 60 / (2*np.pi) * 60 * horas * dias * years
+        self.ciclos_g = self.engrane.Omega * 60 / (2*np.pi) * 60 * horas * dias * years
+        self.engrane.ciclos = self.ciclos_g
+        self.pinion.ciclos = self.ciclos_p
 
 
     def set_load_si(self, H, Omega, T, where):

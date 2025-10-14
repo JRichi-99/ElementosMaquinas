@@ -1,19 +1,18 @@
 == RESUMEN DE COMPATIBILIDAD (ID 0) ==
 Tipo: heli | Acople: externos
-Dientes: Np=12 | Ng=30
-Ángulos [°]: φ_n=25.00 | φ_t=26.70 | ψ=22.00
-m_p=1.27 | m_f=0.95 | m_n=0.76
+Dientes: Np=31 | Ng=48
+Ángulos [°]: φ_n=20.00 | φ_t=21.43 | ψ=22.00
+m_p=1.53 | m_f=1.91 | m_n=0.62
 
 -- Interferencia --
-Criterio 2 NO se cumple (piñón): 2.37 < 1.06
-Criterio 3 NO se cumple: 2.37 < 1.06
-Interferencia: SÍ
+No hay interferencia (todos los criterios se cumplen).
+Interferencia: NO
 
 -- Contacto --
-Razón de contacto m_p fuera de rango (recomendado ~1.4–2.0): 1.27
-Razón de solape m_f (axial) INSUFICIENTE: 0.95 < 1.15
-Verificación F > p_x: NO (33.80 > 35.50)
-Verificación F > 3*m_t/tan(psi): NO (33.80 > 33.90)
+Razón de contacto m_p OK: 1.53
+Razón de solape m_f (axial) OK: 1.91
+Verificación F > p_x: OK (64 > 33.55)
+Verificación F > 3*m_t/tan(psi): OK (64 > 32.03)
 
 -- Dientes mínimos --
-Piñón con dientes suficientes: 12 ≥ 9
+Piñón con dientes suficientes: 31 ≥ 12

@@ -9,6 +9,8 @@ class EngranajeResistencia(EE):
         self.factor_f = None
         self.HB = None
 
+        self.ciclos = None
+
 
     def calc_resistance(self, K_L, K_T, K_R, C_L, C_H, pSF, pSFC):
         self.safe_f = pSF*K_L/K_T/K_R
