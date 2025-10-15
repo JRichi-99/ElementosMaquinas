@@ -85,9 +85,19 @@ class PresionUniforme:
         Retorna:
         r̄ [m] : coordenada del punto de aplicación de la fuerza resultante
         """
-        re = RadioEquivalente(rE, rI)
+        re = PresionUniforme.RadioEquivalente(rE, rI)
         return ((np.cos(theta1) - np.cos(theta2)) / (theta2 - theta1)) * re
 
+    @staticmethod
+    def ParMaxrI():
+        """
+        Parámetros:
+        rE     : radio exterior del disco [m]
+
+        Retorna:
+        rI [m] : radio interior del disco para que el par de frenado sea máximo
+        """
+        return 0
 
 
 class DesgasteUniforme:
@@ -138,3 +148,79 @@ class DesgasteUniforme:
         p(r) [Pa]
         """
         return pA * rI / r
+
+    @staticmethod
+    def RadioEquivalente(rE, rI):
+        """
+        Calcula el RADIO EQUIVALENTE (r_e) como promedio aritmético
+        entre los radios exterior e interior de un freno de disco.
+
+        Fórmula:
+            r_e = 0.5 * (rE + rI)
+
+        Parámetros:
+        rE : radio exterior del disco [m]
+        rI : radio interior del disco [m]
+
+        Retorna:
+        r_e [m] : radio equivalente
+        """
+        return 0.5 * (rE + rI)
+
+    @staticmethod
+    def RadioFuerza(theta1, theta2, rE, rI):
+        """
+        Calcula la COORDENADA DE UBICACIÓN DE LA FUERZA RESULTANTE (r̄)
+        para un freno de disco.
+
+        Fórmula:
+            r̄ = ((cosθ₁ - cosθ₂) / (θ₂ - θ₁)) * r_e
+
+        Parámetros:
+        theta1 : ángulo inicial de contacto [rad]
+        theta2 : ángulo final de contacto [rad]
+        rE     : radio exterior del disco [m]
+        rI     : radio interior del disco [m]
+
+        Retorna:
+        r̄ [m] : coordenada de aplicación de la fuerza
+        """
+        re = DesgasteUniforme.RadioEquivalente(rE, rI)
+        return ((np.cos(theta1) - np.cos(theta2)) / (theta2 - theta1)) * re
+    
+    @staticmethod
+    def ParMaxrI(rE):
+        """
+        Parámetros:
+        rE     : radio exterior del disco [m]
+
+        Retorna:
+        rI [m] : radio interior del disco para que el par de frenado sea máximo
+        """
+        return np.sqrt(3)/3*rE
+
+
+class ZapataCircular:
+    @staticmethod
+    def FuerzaFrenado(R, p_prom):
+        """
+        Parámetros:
+        R     : radio de la zapata circular
+        p_prom : presión promedio se calcula con tabla
+        
+        """
+        return np.pi*R*p_prom
+
+    @staticmethod
+    def ParFrenado(mu, r_equiv, R, p_prom):
+        """
+        Parámetros:
+        mu     : coeficiente de fricción
+        r_equiv : radio equivalente se calcula con tabla
+        R     : radio de la zapata circular
+        p_prom : presión promedio se calcula con tabla
+
+        """
+        return mu*ZapataCircular.FuerzaFrenado(R,p_prom)*r_equiv
+
+
