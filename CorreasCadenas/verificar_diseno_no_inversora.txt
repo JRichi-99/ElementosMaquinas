@@ -1,0 +1,38 @@
+Verificar DISEÑO BANDA PLANA (No inversora)
+
+PARÁMETROS DE ENTRADA:
+D = 18
+d = 6
+a = 96
+h_nom = 15
+k_serv = 1.25
+n_seg = 1.1
+t(ref) = 0.13
+mu_max = 0.8
+gamma(ref) = 0.042
+
+ENTRADAS (interactivas):
+wd = 1750
+gamma = 0.042
+b = 6
+t = 0.13
+t_adm = 100
+c_p = 0.7
+c_v = 1.0
+
+RESULTADOS:
+theta_d = 3.01651112999681
+lp = 230.0741118430775
+v = 2748.893571891069
+tc = 25.65000351130174
+h_dem = 18.75
+h_adm = 20.625
+m_adm_d = 742.7946428571429
+t1_adm = 100
+t1_adm_real = 420.0
+t2 = 172.4017857142857
+ti = 270.5508893458411
+mu_admisible = 0.3276952032405903
+
+VEREDICTO:
+CUMPLE
