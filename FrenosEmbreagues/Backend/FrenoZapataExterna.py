@@ -30,7 +30,7 @@ eq_ry_larga = sp.Eq(Ry, w*r*pmax*sp.Rational(1,2)/sp.sin(thetaMax)*(-mu*sp.sin(t
 
 ECUACIONES = {
     "fuerzanormal_corta": eq_fuerzanormal_corta,
-    "fuerzaaplicacion": eq_fuerzaaplicacion,
+    "fuerzaaplicacion_corta": eq_fuerzaaplicacion,
     "fuerzafriccion_corta": eq_fuerzafriccion_corta,
     "parfrenado_corta": eq_parfrenado_corta,
     "presion_corta": eq_presion_corta,
@@ -48,9 +48,6 @@ ECUACIONES = {
 
 def solve_eq(nombre_eq, objetivo=None, **kwargs):
     return resolver(nombre_eq, ECUACIONES, SYMS, objetivo, **kwargs)
-
-def solve_auto(nombre_eq, objetivo, params):
-    return resolver_auto(nombre_eq, objetivo, params, ECUACIONES=ECUACIONES, SYMS=SYMS)
 
 def consultar():
     consultar_ecuaciones(ECUACIONES)

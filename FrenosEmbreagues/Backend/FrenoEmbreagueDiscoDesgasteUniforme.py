@@ -29,9 +29,6 @@ ECUACIONES = {
 def solve_eq(nombre_eq, objetivo=None, **kwargs):
     return resolver(nombre_eq, ECUACIONES, SYMS, objetivo, **kwargs)
 
-def solve_auto(nombre_eq, objetivo, params):
-    return resolver_auto(nombre_eq, objetivo, params, ECUACIONES=ECUACIONES, SYMS=SYMS)
-
 def consultar():
     consultar_ecuaciones(ECUACIONES)
 
